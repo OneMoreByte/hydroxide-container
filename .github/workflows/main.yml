@@ -37,3 +37,4 @@ jobs:
           context: .
           push: true
           tags: jsckh/hydroxide:latest
+          file: "{context}/Containerfile"
