@@ -79,7 +79,7 @@ def do_auth(user, password):
 def hydroxide_run(sub_cmd):
     name = sub_cmd.upper()
     args = get_hydroxide_args()
-    command = shlex.split(f"/app/hydroxide {sub_cmd} {args}")
+    command = shlex.split(f"/app/hydroxide{args} {sub_cmd}")
     process = sp.Popen(command, stdout=sp.PIPE)
     exitcode = 0
     while True:
@@ -96,25 +96,25 @@ def hydroxide_run(sub_cmd):
 def get_hydroxide_args():
     args = ""
     if os.getenv("HYDROXIDE_DEBUG") == "true":
-        args += "-debug"
+        args += " -debug"
     if os.getenv("HYDROXIDE_SMTP_HOST"):
-        args += f"-smtp-host {os.getenv('HYDROXIDE_SMTP_HOST')}"
+        args += f" -smtp-host {os.getenv('HYDROXIDE_SMTP_HOST')}"
     if os.getenv("HYDROXIDE_IMAP_HOST"):
-        args += f"-imap-host {os.getenv('HYDROXIDE_IMAP_HOST')}"
+        args += f" -imap-host {os.getenv('HYDROXIDE_IMAP_HOST')}"
     if os.getenv("HYDROXIDE_CARDDAV_HOST"):
-        args += f"-carddav-host {os.getenv('HYDROXIDE_CARDDAV_HOST')}"
+        args += f" -carddav-host {os.getenv('HYDROXIDE_CARDDAV_HOST')}"
     if os.getenv("HYDROXIDE_SMTP_PORT"):
-        args += f"-smtp-port {os.getenv('HYDROXIDE_SMTP_PORT')}"
+        args += f" -smtp-port {os.getenv('HYDROXIDE_SMTP_PORT')}"
     if os.getenv("HYDROXIDE_IMAP_PORT"):
-        args += f"-imap-port {os.getenv('HYDROXIDE_IMAP_PORT')}"
+        args += f" -imap-port {os.getenv('HYDROXIDE_IMAP_PORT')}"
     if os.getenv("HYDROXIDE_CARDDAV_PORT"):
-        args += f"-carddav-port {os.getenv('HYDROXIDE_CARDDAV_PORT')}"
+        args += f" -carddav-port {os.getenv('HYDROXIDE_CARDDAV_PORT')}"
     if os.getenv("HYDROXIDE_TLS_CERT"):
-        args += f"-tls-cert {os.getenv('HYDROXIDE_TLS_CERT')}"
+        args += f" -tls-cert {os.getenv('HYDROXIDE_TLS_CERT')}"
     if os.getenv("HYDROXIDE_TLS_KEY"):
-        args += f"-tls-key {os.getenv('HYDROXIDE_TLS_KEY')}"
+        args += f" -tls-key {os.getenv('HYDROXIDE_TLS_KEY')}"
     if os.getenv("HYDROXIDE_TLS_CLIENT_CA"):
-        args += f"-tls-client-ca {os.getenv('HYDROXIDE_TLS_CLIENT_CA')}"
+        args += f" -tls-client-ca {os.getenv('HYDROXIDE_TLS_CLIENT_CA')}"
     return args
 
 if __name__ == "__main__":
