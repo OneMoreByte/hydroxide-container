@@ -7,18 +7,22 @@ on:
 jobs:
   build-container:
     name: Build container
-    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
       - name: Get git and version
         shell: bash
         run: |
           echo "SHA_SHORT=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
-          echo "HYDROXIDE_VERSION=$(cd hydroxide && git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_ENV"
-      - name: build container ${{ matrix.component }}
+          echo "HYDROXIDE_VERSION=$(cat .version)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        name: Checkout hydroxide
+        with:
+          repository: emersion/hydroxide
+          ref: "${{ env.HYDROXIDE_VERSION }}"
+          path: "./hydroxide"
+
+      - name: build container
         id: build-container
         uses: redhat-actions/buildah-build@v2
         with:
