@@ -1,0 +1,35 @@
+---
+name: Build container
+on:
+  push: {}
+  workflow_dispatch: {}
+
+jobs:
+  build-container:
+    name: Build container
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get git and version
+        shell: bash
+        run: |
+          echo "SHA_SHORT=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+          echo "HYDROXIDE_VERSION=$(cd hydroxide && git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_ENV"
+      - name: build container ${{ matrix.component }}
+        id: build-container
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ghcr.io/onemorebyte/hydroxide
+          tags: latest ${{ env.HYDROXIDE_VERSION }}-${{ env.SHA_SHORT }} ${{ env.HYDROXIDE_VERSION }}
+          containerfiles: |
+            ./Containerfile
+
+      - name: push to image repo
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-container.outputs.image }}
+          tags: ${{ steps.build-container.outputs.tags }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}

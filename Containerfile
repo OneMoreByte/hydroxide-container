@@ -5,13 +5,9 @@ RUN cd /go/src/hydroxide && GO111MODULE=on go build /go/src/hydroxide/cmd/hydrox
 
 FROM alpine:latest
 
-RUN apk add python3
+RUN apk add python3 py3-pexpect
 
 COPY --from=build /go/src/hydroxide/hydroxide /app/hydroxide
-ADD ./entrypoint.py /app/entrypoint
-RUN adduser -D -g '' hydroxide
-USER hydroxide
-WORKDIR /home/hydroxide
 
 ENV PROTONMAIL_USER=""
 ENV PROTONMAIL_PASS=""
@@ -32,5 +28,12 @@ ENV HYDROXIDE_TLS_KEY=""
 ENV HYDROXIDE_TLS_CLIENT_CA=""
 
 ENV HYDROXIDE_DEBUG="false"
+
+
+COPY ./entrypoint.py /app/entrypoint
+RUN adduser -D -g '' hydroxide
+USER hydroxide
+WORKDIR /home/hydroxide
+
 
 ENTRYPOINT ["/app/entrypoint"]
