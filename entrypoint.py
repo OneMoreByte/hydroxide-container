@@ -31,7 +31,7 @@ class Hydroxide:
                 if rc != 0:
                     return rc
             elif os.path.exists(self.auth_file):
-                print("INFO: using mounted in auth.")
+                print("INFO: using existing auth file.")
             else:
                 print(
                     "ERROR: unable to run!",
