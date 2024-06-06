@@ -35,10 +35,10 @@ $ docker run -d -p 1025:1025 -p 1143:1143 -p 8080:8080 \
     ghcr.io/OneMoreByte/hydroxide
 INFO: trying to log in to protonmail
 Bridge password: 'asdklfkjlsdvnmosdfavinasdopmvasdoifalklk'
-running command:  ['/app/hydroxide', '-smtp-host', '127.0.0.1', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
-2024/06/06 14:24:00 CardDAV server listening on 127.0.0.1:8080
-2024/06/06 14:24:00 SMTP server listening on 127.0.0.1:1025
-2024/06/06 14:24:00 IMAP server listening on 127.0.0.1:1143
+running command:  ['/app/hydroxide', '-smtp-host', '0.0.0.0', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
+2024/06/06 14:24:00 CardDAV server listening on 0.0.0.0:8080
+2024/06/06 14:24:00 SMTP server listening on 0.0.0.0:1025
+2024/06/06 14:24:00 IMAP server listening on 0.0.0.0:1143
 
 ```
 
@@ -66,10 +66,10 @@ $ docker run -d -p 1025:1025 -p 1143:1143 -p 8080:8080 \
     -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw
     ghcr.io/OneMoreByte/hydroxide
 INFO: using existing auth file.
-running command:  ['/app/hydroxide', '-smtp-host', '127.0.0.1', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
-2024/06/06 14:24:00 CardDAV server listening on 127.0.0.1:8080
-2024/06/06 14:24:00 SMTP server listening on 127.0.0.1:1025
-2024/06/06 14:24:00 IMAP server listening on 127.0.0.1:1143
+running command:  ['/app/hydroxide', '-smtp-host', '0.0.0.0', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
+2024/06/06 14:24:00 CardDAV server listening on 0.0.0.0:8080
+2024/06/06 14:24:00 SMTP server listening on 0.0.0.0:1025
+2024/06/06 14:24:00 IMAP server listening on 0.0.0.0:1143
 
 ```
 
@@ -85,9 +85,9 @@ These environment variables are available for you to set.
 | `HYDROXIDE_NO_SMTP`       | Set this to `true` if you would like to completely disable the SMTP bridge                                                             | `false`     |
 | `HYDROXIDE_NO_IMAP`       | Set this to `true` if you would like to completely disable the IMAP bridge                                                             | `false`     | 
 | `HYDROXIDE_NO_CARDDAV`    | Set this to `true` if you would like to completely disable the CARDAV server                                                           | `false`     |
-| `HYDROXIDE_SMTP_HOST`     | Set this to the hostname you want hydroxide to listen to for the SMTP bridge                                                           | `127.0.0.1` |
-| `HYDROXIDE_IMAP_HOST`     | Set this to the hostname you want hydroxide to listen to for the IMAP bridge                                                           | `127.0.0.1` |
-| `HYDROXIDE_CARDDAV_HOST`  | Set this to the hostname you want hydroxide to listen to for the CARDAV bridge                                                         | `127.0.0.1` |
+| `HYDROXIDE_SMTP_HOST`     | Set this to the hostname you want hydroxide to listen to for the SMTP bridge                                                           | `0.0.0.0` |
+| `HYDROXIDE_IMAP_HOST`     | Set this to the hostname you want hydroxide to listen to for the IMAP bridge                                                           | `0.0.0.0` |
+| `HYDROXIDE_CARDDAV_HOST`  | Set this to the hostname you want hydroxide to listen to for the CARDAV bridge                                                         | `0.0.0.0` |
 | `HYDROXIDE_SMTP_PORT`     | Set this to the port you want hydroxide to listen to for the SMTP bridge                                                               | `1025`      |
 | `HYDROXIDE_IMAP_PORT`     | Set this to the port you want hydroxide to listen to for the SMTP bridge                                                               | `1143`      |
 | `HYDROXIDE_CARDDAV_PORT`  | Set this to the port you want hydroxide to listen to for the SMTP bridge                                                               | `8080`      |
