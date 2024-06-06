@@ -8,11 +8,11 @@ There are two ways to use this container.
 
 ### Directly interacting with hydroxide
 
-This is helpful if you need to run the `auth` sub-command directly or you would like to bypass the wrapper. All arguments passed after `ghcr.io/OneMoreByte/hydroxide` will be passed as arguments directly to `hydroxide`.
+This is helpful if you need to run the `auth` sub-command directly or you would like to bypass the wrapper. All arguments passed after `ghcr.io/onemorebyte/hydroxide` will be passed as arguments directly to `hydroxide`.
 
 An example running `hydroxide auth` via the container:
 ```bash
-$ docker run -it -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw ghcr.io/OneMoreByte/hydroxide auth "username@protonmail.me"
+$ docker run -it -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw ghcr.io/onemorebyte/hydroxide auth "username@protonmail.me"
 Password:
 2FA TOTP code:
 Bridge Password: blasjdkfsdfajlkjsdalfdsaf
@@ -32,7 +32,7 @@ $ docker run -d -p 1025:1025 -p 1143:1143 -p 8080:8080 \
     -e PROTONMAIL_USER="username@protonmail.com" \
     -e PROTONMAIL_PASS="v3ry-str0ng-pass" \
     -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw
-    ghcr.io/OneMoreByte/hydroxide
+    ghcr.io/onemorebyte/hydroxide
 INFO: trying to log in to protonmail
 Bridge password: 'asdklfkjlsdvnmosdfavinasdopmvasdoifalklk'
 running command:  ['/app/hydroxide', '-smtp-host', '0.0.0.0', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
@@ -46,14 +46,14 @@ An example using a mounted `auth.json`:
 ```bash
 $ docker run -d -p 1025:1025 -p 1143:1143 -p 8080:8080 \
     -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw \
-    ghcr.io/OneMoreByte/hydroxide
+    ghcr.io/onemorebyte/hydroxide
 ```
 
 
 #### Creating an `auth.json` file manually
 If you use 2-Factor, or you would prefer to not use the environment variables you can manually run `hydroxide auth` like the example below:
 ```bash
-$ docker run -it -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw ghcr.io/OneMoreByte/hydroxide auth "username@protonmail.me"
+$ docker run -it -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw ghcr.io/onemorebyte/hydroxide auth "username@protonmail.me"
 Password:
 2FA TOTP code:
 Bridge Password: blasjdkfsdfajlkjsdalfdsaf
@@ -64,7 +64,7 @@ This example will create the auth.json file in your `$HOME/.config/hydroxide` di
 ```bash
 $ docker run -d -p 1025:1025 -p 1143:1143 -p 8080:8080 \
     -v $HOME/.config/hydroxide:/home/hydroxide/.config/hydroxide:rw
-    ghcr.io/OneMoreByte/hydroxide
+    ghcr.io/onemorebyte/hydroxide
 INFO: using existing auth file.
 running command:  ['/app/hydroxide', '-smtp-host', '0.0.0.0', '-imap-host', '127.0.0.1', '-carddav-host', '127.0.0.1', '-smtp-port', '1025', '-imap-port', '1143', '-carddav-port', '8080', 'serve']
 2024/06/06 14:24:00 CardDAV server listening on 0.0.0.0:8080
