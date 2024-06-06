@@ -1,9 +1,15 @@
-FROM golang:alpine AS build
+FROM docker.io/golang:alpine AS build
 
-ADD ./hydroxide /go/src/hydroxide
-RUN cd /go/src/hydroxide && GO111MODULE=on go build /go/src/hydroxide/cmd/hydroxide
+COPY ./hydroxide /go/src/hydroxide
+WORKDIR /go/src/hydroxide
+RUN GO111MODULE=on go build /go/src/hydroxide/cmd/hydroxide
 
-FROM alpine:latest
+FROM docker.io/alpine:3.20
+
+LABEL org.opencontainers.image.url="https://github.com/OneMoreByte/hydroxide-container"
+LABEL org.opencontainers.image.documentation="https://github.com/OneMoreByte/hydroxide-container"
+LABEL org.opencontainers.image.source="https://github.com/OneMoreByte/hydroxide-container"
+LABEL org.opencontainers.image.description="Hydroxide the protonmail bridge."
 
 RUN apk add python3 py3-pexpect
 
@@ -27,6 +33,7 @@ ENV HYDROXIDE_TLS_CERT=""
 ENV HYDROXIDE_TLS_KEY=""
 ENV HYDROXIDE_TLS_CLIENT_CA=""
 
+ENV HYDROXIDE_BRIDGE_PASS=""
 ENV HYDROXIDE_DEBUG="false"
 
 
