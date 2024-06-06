@@ -1,4 +1,4 @@
 [submodule "hydroxide"]
 	path = hydroxide
 	url = https://github.com/emersion/hydroxide.git
-	branch = 0.2.28
+	branch = v0.2.28
