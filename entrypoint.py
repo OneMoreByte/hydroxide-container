@@ -44,6 +44,11 @@ class Hydroxide:
         return self.serve()
 
     def auth(self) -> int:
+        try:
+            os.makedirs(self.hydroxide_dir, exist_ok=True)
+        except:
+            print(f"Can't write to {self.hydroxide_dir}")
+            return 1
         command = f"/app/hydroxide auth {self.proton_user}"
         child = pexpect.spawn(command)
         child.expect("Password:")
@@ -63,7 +68,7 @@ class Hydroxide:
             print("couldn't get bridge_password!")
             return 1
         print(f"Bridge password: '{bridge_password}'")
-        with open("{self.hydroxide_dir}/.bridge") as f:
+        with open(f"{self.hydroxide_dir}/.bridge", "w") as f:
             f.write(bridge_password)
         return 0
 
