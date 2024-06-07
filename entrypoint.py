@@ -10,7 +10,8 @@ import pexpect
 class Hydroxide:
 
     def __init__(self):
-        self.auth_file = "/home/hydroxide/.config/hydroxide/auth.json"
+        self.hydroxide_dir = "/home/hydroxide/.config/hydroxide"
+        self.auth_file = f"{self.hydroxide_dir}/auth.json"
         self.proton_user = os.getenv("PROTONMAIL_USER")
         self.proton_pass = os.getenv("PROTONMAIL_PASS")
 
@@ -62,6 +63,8 @@ class Hydroxide:
             print("couldn't get bridge_password!")
             return 1
         print(f"Bridge password: '{bridge_password}'")
+        with open("{self.hydroxide_dir}/.bridge") as f:
+            f.write(bridge_password)
         return 0
 
     def serve(self) -> int:
