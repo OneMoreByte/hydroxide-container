@@ -3,6 +3,7 @@
 import os
 import subprocess as sp
 import sys
+import pathlib
 
 import pexpect
 
@@ -10,10 +11,10 @@ import pexpect
 class Hydroxide:
 
     def __init__(self):
-        self.hydroxide_dir = "/home/hydroxide/.config/hydroxide"
-        self.auth_file = f"{self.hydroxide_dir}/auth.json"
-        self.proton_user = os.getenv("PROTONMAIL_USER")
-        self.proton_pass = os.getenv("PROTONMAIL_PASS")
+        self.hydroxide_dir = pathlib.Path("/home/hydroxide/.config/hydroxide")
+        self.auth_file = self.hydroxide_dir / pathlib.Path("auth.json")
+        self.proton_user = os.getenv("PROTONMAIL_USER", "")
+        self.proton_pass = os.getenv("PROTONMAIL_PASS", "")
 
     def entrypoint(self, args: list[str]) -> int:
         # If we get args, just passthrough to hydroxide
@@ -26,13 +27,13 @@ class Hydroxide:
             )
             process.wait()
         else:
-            if self.proton_user and self.proton_pass:
+            if self.auth_file.exists():
+                print("INFO: using existing auth file.")
+            elif self.proton_user and self.proton_pass:
                 print("INFO: trying to log in to protonmail")
                 rc = self.auth()
                 if rc != 0:
                     return rc
-            elif os.path.exists(self.auth_file):
-                print("INFO: using existing auth file.")
             else:
                 print(
                     "ERROR: unable to run!",
